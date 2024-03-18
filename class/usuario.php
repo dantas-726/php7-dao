@@ -108,7 +108,7 @@ public function loadById($id) {
 
       $this->setdeslogin($login);
       $this->setDessenha($password);
-      
+
       $sql = new Sql();
       $sql ->query( "UPDATE tb_usuarios SET deslogin = :LOGIN, dessenha = :PASSWORD WHERE idusuario = :ID", array(
         ":LOGIN"=>$this->getdeslogin(),
@@ -116,6 +116,19 @@ public function loadById($id) {
         ":ID"=>$this->getIdusuario()
           ));
       
+     }
+
+     public function delete(){
+      $sql = new Sql();
+      $sql -> query("DELETE FROM tb_usuarios WHERE idusuario = :ID", array(
+        ":ID"=>$this->getIdusuario()
+      ));
+
+      $this->setIdusuario(NULL);
+      $this->setDeslogin(NULL);
+      $this->setDessenha(NULL);
+      $this->setDtcadastro(new DateTime);
+
      }
 
     public function __construct($login = "", $password = "") {
